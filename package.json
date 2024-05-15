@@ -1,8 +1,8 @@
 {  
    "scripts": {
     "start": "parcel index.html", 
-    "build": "parcel buid index.html",
-    "text": "jest"
+    "build": "parcel build index.html",
+    "test": "jest"
    },
   "devDependencies": {
     "parcel": "^2.12.0",
