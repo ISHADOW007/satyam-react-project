@@ -20,3 +20,32 @@ coursedl.org | bytescore.lol
 - HTTPs
 - Tree shaking - remove unused code 
 - Different dev and prod bundles 
+
+# NAMASTE FOOD
+/**
+ * Header
+ *  - Logo
+ *  - Nav Items
+ * Body
+ *  - Search
+ *  - ResturantContainer
+ *  - ReastaurantCard
+ *    - image
+ *    - Name of Res, Star Rating, cuisins, devilery tie
+ * Footer
+ *  - Copyriht
+ *  - Links
+ *  - Adress
+ *  - Contact
+ */
+ # Two types of Export/Import
+
+- Default Export/Import
+
+  export default Component;
+  import Component from "path";
+
+- Name Export/Import
+  export const  Component;
+  import {Component} from path;
+    
