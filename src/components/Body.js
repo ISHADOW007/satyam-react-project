@@ -3,13 +3,16 @@ import ResturantCard from "./ResturantCard";
 // import resList from "../utils/mockData";
 import { useState, useEffect } from "react";
 import Shimmer from "./shimmer";
+import { Link } from "react-router-dom";
 
 const Body = () => {
     // Local state variables
     const [ListOfRestaurant, setListOfRestaurant] = useState([]);
     const [filteredRestaurant, setFilteredRestaurant] = useState([]);
     const [searchText, setSearchText] = useState("");
-
+    // if no dependency array useState is called on every  render
+    //if dependency array is empty = [ ]=> useEffect is called on initial  render (just once)
+    //if depenency  array is [BtnNameReact] =>  useEffect is called everytime btnNameReact is updated
     // Fetch data on component mount
     useEffect(() => {
         fetchData();
@@ -23,7 +26,7 @@ const Body = () => {
         setFilteredRestaurant(restaurants);
     };
 
-    return ListOfRestaurant.length === 0 ? <Shimmer /> : (
+    return ListOfRestaurant.length == 0 ? <Shimmer /> : (
         <div className="body">
             <div className="filter">
                 <input 
@@ -51,10 +54,10 @@ const Body = () => {
             </div>
             <div className="res-container">
                 {filteredRestaurant?.map((item) => (
-                    <ResturantCard 
-                        key={item.info.id}
-                        obj={item}
-                    />
+                   <Link key={item.info.id} to={"resturants/"+item.info.id}><ResturantCard 
+                   key={item.info.id}
+                   obj={item}/></Link> 
+                   
                 ))}
             </div>
         </div>
