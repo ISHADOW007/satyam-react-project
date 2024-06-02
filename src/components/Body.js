@@ -2,7 +2,7 @@
 import ResturantCard from "./ResturantCard";
 // import resList from "../utils/mockData";
 import { useState, useEffect } from "react";
-import Shimmer from "./shimmer";
+import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 
 const Body = () => {
@@ -26,7 +26,9 @@ const Body = () => {
         setFilteredRestaurant(restaurants);
     };
 
-    return ListOfRestaurant.length == 0 ? <Shimmer /> : (
+    if(ListOfRestaurant.length === 0)
+        return (<Shimmer />) ;
+    return (
         <div className="body">
             <div className="filter">
                 <input 
