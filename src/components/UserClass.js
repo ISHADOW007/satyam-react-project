@@ -2,30 +2,38 @@ import React from "react";
 class UserClass extends React.Component {
     constructor(props){
         super(props);
-        console.log(this.props.name +"child constructor");
-        //always create all new state variabe in single this.state
-        this.state ={
-            count:0,
-            count2:0,
-        };
+       console.log(this.props.name +"child constructor");
+       this.state={
+        userInfo:{
+            name:"Dummy",
+            location:"Default",
+            avatar_url:"http://dummy-photo.com",   
+        },
+       };
     }
-    componentDidMount(){
-        console.log(this.props.name +"Child ComponentsDidMount");
-    }
+    async componentDidMount(){
+        console.log("Parent Did Mount")
+        // Api calls
+        const data= await fetch("https://api.github.com/users/akshaymarch7");
+        const json = await data.json();
+        this.setState({
+         userInfo:json,
+        });
+        console.log(json)
+     }
+     componentDidUpdate(){
+        console.log("componentDid update");
+     }
+     componentWillUnmount (){
+        console.log("Component Will UNnmount");
+     }
     render(){
         console.log(this.props.name +"Children renders");
-        const {name, location} = this.props;
-        const {count} = this.state;
+        const {name, location,avatar_url} = this.state.userInfo;
         return (
-        <div className="user-card"> 
-        <h1>Count ={count}</h1>
         
-        <button onClick={()=>{
-            //Never Update state variables directly
-            this.setState({
-                count:this.state.count +1 ,
-            })
-        }}>Count Incerease</button>
+        <div className="user-card">
+            <img src={avatar_url}/> 
         <h2>Name: {name}</h2>
         <h3>Location:{location}</h3>
         <h4>Contact: @akshaymach7</h4>
@@ -35,37 +43,25 @@ class UserClass extends React.Component {
 }
 export default UserClass ;
 
-// excution of one parent two child class components
-/*                                       
-//expect output which is incorrect          
--Parent Constructor
--Parent render
-      - first Constructor
-      -first Renders
-      -first ComponenetDidMount
+/*** complete excution of a class componenet
+ * ------Mounting------
+ * 
+ * constructor(dummy)
+ * Render(dummy)
+ *   <HTML Dumy>
+ * Component Did Mount
+ *     <API Call>
+ *     <this .setSTate> -> State variable is updated
+ * ---- UPDATE....
+ *    render(API data)
+ *     <HTML(new API data>)
+ * ComponentDid Update
+ * 
+ */
 
-      -secound Constructor
-      -secound Renders 
-      -secound ComponentDidMount
-- Parent ComponentDidMount
-*/
-
-/* actual output which is correct          
--Parent Constructor
--Parent render
-       IN SINGLE BATCH in a render phase of all children
-      {- first Constructor
-      - first Renders
-
-      -secound Constructor
-      -secound Renders }
-      <DOM UPDATED - IN SINGLE BATCH in a commit phase of all children of all children>
-
-      -first ComponenetDidMount
-      -secound ComponentDidMount
-- Parent ComponentDidMount
-*/
-
-/*Note dom manipulartion is very expensive in terms of time so react batche renders
- and commit phase of all chilren together
-*/
+// firstchild constructor
+// UserClass.js:31 firstChildren renders
+// UserClass.js:18 Parent Did Mount
+// UserClass.js:25 Object
+// UserClass.js:31 firstChildren renders
+// UserClass.js:28 componentDid update
