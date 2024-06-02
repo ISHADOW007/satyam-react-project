@@ -6,7 +6,7 @@ const User = ({name})=>{
     return (
         <div className="user-card"> 
        <h1>Count ={count}</h1>
-       <h1>Count2 ={count2}</h1>
+       <h1>Count ={count2}</h1>
        <h2>Name: {name}</h2>
        <h3>Location: Dehradun</h3>
        <h4>Contact: @akshaymach7</h4>
