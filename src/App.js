@@ -1,26 +1,30 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Header from "./components/Header.js";
 import Body from "./components/Body.js";
 import About from "./components/About.js";
-import {createBrowserRouter,RouterProvider,Outlet} from "react-router-dom";
 import Contact from "./components/Contact.js";
 import Error from "./components/Error.js";
 import ResturantMenu from "./components/ResturantMenu.js";
+import Shimmer from "./components/Shimmer.js";
+
+const Grocery = lazy(() => import("./components/Grocery.js"));
+
 const AppLayout = () => {
-    return (
-        <div className="app">
-          <Header/>
-          <Outlet />
-        </div>
-    );
+  return (
+    <div className="app">
+      <Header />
+      <Outlet />
+    </div>
+  );
 };
 
-const appRouter= createBrowserRouter([
+const appRouter = createBrowserRouter([
   {
     path: "/",
     element: <AppLayout />,
-    children:[
+    children: [
       {
         path: "/",
         element: <Body />
@@ -31,17 +35,26 @@ const appRouter= createBrowserRouter([
       },
       {
         path: "/contact",
-        element: <Contact />,
+        element: <Contact />
       },
       {
         path: "/resturants/:resId",
-        element:<ResturantMenu/>
+        element: <ResturantMenu />
+      },
+      {
+        path: "/grocery",
+        element: (
+          <Suspense fallback={<Shimmer />}>
+            <Grocery />
+          </Suspense>
+        )
       }
     ],
-    errorElement: <Error/>,
-  },
-  
+    errorElement: <Error />
+  }
 ]);
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<RouterProvider router={appRouter}/>);
+root.render(<RouterProvider router={appRouter} />);
+
 

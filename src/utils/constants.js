@@ -2,3 +2,4 @@ export const  CDN_URL ="https://media-assets.swiggy.com/swiggy/image/upload/fl_l
 export const LOGO_URL ="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcthr2b0L4id8NgDgtQH5HWZB2NxJt8VYeTA&s";
 
 export const MENU_API ="https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=12.9351929&lng=77.62448069999999&restaurantId=";
+export const P_1= "https://www.google.com/imgres?q=online%20status%20%20status%20symbol&imgurl=https%3A%2F%2Fcdn.shopify.com%2Fs%2Ffiles%2F1%2F0607%2F0118%2F0126%2Ft%2F10%2Fassets%2Fellipse-37-1635879570185.svg%3Fv%3D1635879575&imgrefurl=https%3A%2F%2F24kupi.com%2Fproducts%2Fsuper-pen&docid=USjsQypw88hl0M&tbnid=kIeKV_OoXB60ZM&vet=12ahUKEwiEnrKVvr-GAxWXwzgGHf6OD-84FBAzegQIZBAA..i&w=800&h=800&hcb=2&ved=2ahUKEwiEnrKVvr-GAxWXwzgGHf6OD-84FBAzegQIZBAA";
