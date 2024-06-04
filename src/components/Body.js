@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 
+
 const Body = () => {
     // Local state variables
     const [ListOfRestaurant, setListOfRestaurant] = useState([]);
@@ -31,13 +32,14 @@ const Body = () => {
     return (
         <div className="body">
             <div className="filter">
+                <div className="search m-4 p-4">
                 <input 
                     type="text" 
-                    className="search-box" 
+                    className="border border-solid border-black" 
                     value={searchText}
                     onChange={(e) => setSearchText(e.target.value)}
                 />
-                <button
+                <button className="px-4 py-1 bg-green-100 m-4 rounded-lg"
                     onClick={() => {
                         const filteredRestaurant = ListOfRestaurant.filter((res) =>
                             res.info.name.toLowerCase().includes(searchText.toLowerCase())
@@ -46,15 +48,16 @@ const Body = () => {
                     }}>
                     Search
                 </button>
-                <button className="filter-btn" 
+                <button className="px-4 py-2 bg-gray-100 " 
                     onClick={() => {
                         const filteredList = ListOfRestaurant.filter((res) => res.info.avgRating > 4);
                         setFilteredRestaurant(filteredList);
                     }}>
                     Top rated Restaurants
                 </button>
+                </div>
             </div>
-            <div className="res-container">
+            <div className="flex flex-wrap ">
                 {filteredRestaurant?.map((item) => (
                    <Link key={item.info.id} to={"resturants/"+item.info.id}><ResturantCard 
                    key={item.info.id}

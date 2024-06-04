@@ -1,16 +1,18 @@
 import {CDN_URL} from "../utils/constants";
+import CuisineList from './CuisineList';
 const ResturantCard = ({obj}) =>{
     console.log(obj,"object recived");
     const {cloudinaryImageId,name,cuisines,costForTwo,avgRating}= obj?.info
     const {deliveryTime} = obj?.info?.sla
     return (
-        <div className="res-card" style={{backgroundColor:"#f0f0f0",}}>
+        <div className="m-4 p-4 w-[235px] rounded-lg bg-gray-100 hover:bg-gray-400" >
             <img 
-            className="res-logo"
+            className="rounded-lg"
             alt="res-log"
             src={CDN_URL+cloudinaryImageId}/>
-            <h3>{name}</h3>
-            <h4>{cuisines.join(",")}</h4>
+            <h3 className="font-bold py-4 text-lg">{name}</h3>
+            <CuisineList cuisines={cuisines} />
+            
             <h4>{avgRating}</h4>
             <h4>{costForTwo}</h4>
             <h4>{deliveryTime + "minutes"}</h4> 
