@@ -1,9 +1,10 @@
+import  {withPromotedLabel} from "./ResturantCard";
 
-import ResturantCard from "./ResturantCard";
 // import resList from "../utils/mockData";
 import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import {ResturantCard}  from "./ResturantCard";
 
 
 const Body = () => {
@@ -15,6 +16,10 @@ const Body = () => {
     //if dependency array is empty = [ ]=> useEffect is called on initial  render (just once)
     //if depenency  array is [BtnNameReact] =>  useEffect is called everytime btnNameReact is updated
     // Fetch data on component mount
+    console.log(ListOfRestaurant);
+    console.log(ListOfRestaurant[1]);
+    console.log(ListOfRestaurant[1]?.info?.aggregatedDiscountInfoV3?.header.includes("OFF"));
+    const RestaurantCardPromoted = withPromotedLabel(ResturantCard);
     useEffect(() => {
         fetchData();
     }, []);
@@ -26,6 +31,7 @@ const Body = () => {
         setListOfRestaurant(restaurants);
         setFilteredRestaurant(restaurants);
     };
+    
 
     if(ListOfRestaurant.length === 0)
         return (<Shimmer />) ;
@@ -59,9 +65,10 @@ const Body = () => {
             </div>
             <div className="flex flex-wrap ">
                 {filteredRestaurant?.map((item) => (
-                   <Link key={item.info.id} to={"resturants/"+item.info.id}><ResturantCard 
-                   key={item.info.id}
-                   obj={item}/></Link> 
+                   <Link key={item.info.id} to={"resturants/"+item.info.id}>
+                    {item?.info?.aggregatedDiscountInfoV3?.header?.includes("OFF") ? <RestaurantCardPromoted obj={item}/>:<ResturantCard obj={item}/> }
+                    
+                    </Link> 
                    
                 ))}
             </div>
