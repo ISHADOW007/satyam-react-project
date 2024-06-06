@@ -1,7 +1,10 @@
 import {CDN_URL} from "../utils/constants";
 import CuisineList from './CuisineList';
+import UserContext from "../utils/UserContext";
+import { useContext } from "react";
 export const ResturantCard = ({obj}) =>{
     console.log(obj,"object recived");
+    const { loggedInUser}= useContext(UserContext);
     const {cloudinaryImageId,name,cuisines,costForTwo,avgRating}= obj?.info
     const {deliveryTime} = obj?.info?.sla
     return (
@@ -15,10 +18,10 @@ export const ResturantCard = ({obj}) =>{
             
             <h4>{avgRating}</h4>
             <h4>{costForTwo}</h4>
-            <h4>{deliveryTime + "minutes"}</h4> 
+            <h4>{deliveryTime + "minutes"}</h4>
+            <h4> User :{loggedInUser}</h4> 
         </div>
     )
-
 }
 
 

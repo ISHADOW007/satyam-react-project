@@ -1,11 +1,11 @@
 import  {withPromotedLabel} from "./ResturantCard";
 
 // import resList from "../utils/mockData";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import {ResturantCard}  from "./ResturantCard";
-
+import UserContext from "../utils/UserContext";
 
 const Body = () => {
     // Local state variables
@@ -31,7 +31,7 @@ const Body = () => {
         setListOfRestaurant(restaurants);
         setFilteredRestaurant(restaurants);
     };
-    
+    const {loggedInUser,setUserName} =useContext(UserContext);
 
     if(ListOfRestaurant.length === 0)
         return (<Shimmer />) ;
@@ -61,6 +61,10 @@ const Body = () => {
                     }}>
                     Top rated Restaurants
                 </button>
+                <label>UserName:</label>
+                <input className="border border-black p-1" 
+                value={loggedInUser}
+                onChange={(e)=> setUserName(e.target.value)}></input>
                 </div>
             </div>
             <div className="flex flex-wrap ">

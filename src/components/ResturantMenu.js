@@ -1,39 +1,45 @@
-
 import Shimmer from "./Shimmer";
-import { Form, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import ResturantCategory from "./ResturantCategory";
+import { useState } from "react";
+import useResturantMenu from "../utils/useResturantMenu";
 
-import useResturantMenu from "../utils/useResturantMenu"
-import ResturantCategory from "./ResturantCategory";
-const ResturantMenu= ()=>{
-   
-    const {resId} =useParams();
+const ResturantMenu = () => {
+    const [showIndex, setShowIndex] = useState(false);
+    const { resId } = useParams();
     console.log(resId);
 
-    const resInfo=useResturantMenu(resId);
-    if(resInfo==null){
-        return <Shimmer /> ;
+    const resInfo = useResturantMenu(resId);
+
+    if (resInfo === null) {
+        return <Shimmer />;
     }
-    const{name,cuisines,costForTwoMessage}=resInfo?.cards[2]?.card?.card?.info;
-   
+
+    const { name, cuisines, costForTwoMessage } = resInfo?.cards[2]?.card?.card?.info || {};
     
-    const itemCards=resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2].card.card.itemCards;
-    console.log(itemCards,"satyam");
+    const itemCards = resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card?.itemCards;
+    console.log(itemCards, "satyam");
     console.log(resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards);
-    const categories =resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter((c)=>
+
+    const categories = resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter((c) =>
         c?.card?.card?.["@type"].includes("ItemCategory")
     );
-    //console.log(categories)
-     return (
+
+    return (
         <div className="text-center">
             <h1 className="font-bold my-6 text-2xl">{name}</h1>
-            <p className="font-bpld text-lg">{cuisines.join(",") } - {costForTwoMessage}</p>
-            {/*catrgories accordiance*/}
-            {categories?.map((category)=>(
-                <ResturantCategory key={category?.card?.card?.title} data={category?.card?.card}/>
+            <p className="font-bold text-lg">{cuisines?.join(", ")} - {costForTwoMessage}</p>
+            {/* categories accordion */}
+            {categories?.map((category, index) => (
+                <ResturantCategory
+                    key={category?.card?.card?.title}
+                    data={category?.card?.card}
+                    showItems={index === showIndex}
+                    setShowIndex={() => setShowIndex(index)}
+                />
             ))}
-           
         </div>
-    )  
-}
+    );
+};
+
 export default ResturantMenu;
