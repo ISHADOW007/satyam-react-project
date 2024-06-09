@@ -3,11 +3,16 @@ import { useState,useContext } from "react";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import UserContext from "../utils/UserContext";
+import { useSelector } from "react-redux";
 const Header = () => {
     const [btnNameReact,setBtnNameReact] = useState("Login");
     const onLineStatus =useOnlineStatus();
     //console.log(onLineStatus)
-    const {loggedInUser} = useContext(UserContext)
+    const {loggedInUser} = useContext(UserContext);
+    // selector is a hook in react (it give access of the store)
+    // subscribing to the store using a selector
+    //after that we specify which part of store we have to access (store.cart.item) & whenever item modifies carItem modifies
+    const cartItems= useSelector((store)=> store.cart.items)
     
     return (
     <div className="flex justify-between bg-pink-100 shadow-lg ">
@@ -27,7 +32,9 @@ const Header = () => {
                     <li className="px-4">
                     <Link to="/grocery">Grocery</Link>
                     </li>
-                <li className="px-4">Cart</li>
+                <li className="px-4 font-bold">
+                <Link to="/cart">Cart- ({cartItems.length} items)</Link>
+                </li>
                 <button className="login"
                 onClick={()=>{
                     btnNameReact == "Login" ? setBtnNameReact("Logout"):setBtnNameReact("Login");

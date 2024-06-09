@@ -10,6 +10,9 @@ import ResturantMenu from "./components/ResturantMenu.js";
 import Shimmer from "./components/Shimmer.js";
 import UserContext from "./utils/UserContext.js";
 import { useEffect,useState} from "react";
+import appStore from "./utils/appStore.js";
+import Cart from "./components/Cart.js";
+import {Provider} from  "react-redux";// helps to provide brige for appt to our store
 // import Grocery from "./components/Grocery.js";
 
 // chunking
@@ -32,8 +35,8 @@ const AppLayout = () => {
   },[]);
   return (
     // Default value
-    
-   <UserContext.Provider value={{ loggedInUser: userName,setUserName}}>
+  <Provider store={appStore}>
+    <UserContext.Provider value={{ loggedInUser: userName,setUserName}}>
     {/* wrapping the value of loggedInUser with userName for whole app now we can use it anywhere in app
      we can  also apply nested wrap
      Akshay saini */}
@@ -45,6 +48,8 @@ const AppLayout = () => {
     <Outlet />
   </div>
   </UserContext.Provider>
+  </Provider> 
+   
     
   );
 };
@@ -77,10 +82,14 @@ const appRouter = createBrowserRouter([
             <Grocery />
           </Suspense>
         )
+      },
+      {
+        path:"/cart",
+        element:<Cart/>,
       }
     ],
     errorElement: <Error />
-  }
+  },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
